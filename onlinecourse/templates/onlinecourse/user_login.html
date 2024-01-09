@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     {% load static %}
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% load static %}
 </head>
-
 <body>
+
 <!-- Add a Navigation bar -->
 <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
@@ -36,17 +36,23 @@
     </div>
 </nav>
 
-<div class="container"> <!--Stylize the root div with .container class -->
-    <h2>{{ course.name }}</h2>
-    <div class="card-columns-vertical"> <!--Stylize the second level card columns div with .card-columns-vertical class-->
-        {% for lesson in course.lesson_set.all %}
-        <div class="card"> <!--Stylize the third level lesson div with .card class-->
-            <div class="card-header">Lesson {{ forloop.counter }}: {{ lesson.title }}</div> <!--Stylize the fourth level lesson header  div with .card-header class-->
-            <div class="card-body">{{lesson.content}}</div>  <!--Stylize the fifth level lesson content div with .card-body class-->
+<!-- Stylize Login form -->
+<form action="{% url 'onlinecourse:login' %}" method="post">
+    {% csrf_token %}
+    <div class="container"> <!--Style root div with .container class -->
+      <h1>Login</h1>
+      <div class="form-group"> <!--Style second div with .form-group class -->
+        <label for="username"><b>User Name</b></label>
+        <input id="username" class = "form-control" type="text" placeholder="Enter User Name: " name="username" required> <!--Style input with .form-control class -->
+        <label for="psw"><b>Password</b></label>
+        <input id="psw" class = "form-control" type="password"  placeholder="Enter Password: " name="psw" required> <!--Style input with .form-control class -->
+      </div>
+      {% if message %}
+        <div class="alert alert-warning"> <!--Style the message paragraph with .alert and .alert-warning class -->
+          {{ message }}
         </div>
-        {% endfor %}
+      {% endif %}
+      <button class="btn btn-primary" type="submit">Login</button> <!--Style button with .btn and .btn-primary class -->
     </div>
-</div>
+  </form>
 </body>
-
-</html>
